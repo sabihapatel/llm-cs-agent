@@ -1,6 +1,21 @@
 # LLM Customer Service Agent (MVP Starter)
 
-A minimal, interview-ready starter that you can run locally with Docker Compose:
+| Category                     | Key Features                             | Description                                                                                                |
+| ---------------------------- | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| 🧠 **Core AI**               | **Retrieval-Augmented Generation (RAG)** | Retrieves answers from Postgres + pgvector knowledge base using cosine similarity.                         |
+|                              | **Intent Detection**                     | Classifies messages as FAQ, order status, or ticket creation for appropriate routing.                      |
+|                              | **Confidence Scoring**                   | Computes similarity confidence; triggers human handoff below threshold (e.g. 0.6).                         |
+| ⚙️ **Backend Logic**         | **Tool Calling**                         | Invokes built-in tools: `get_order_status()` and `create_ticket()` for dynamic responses.                  |
+|                              | **Guardrails**                           | Redacts PII (emails, phones, credit cards) and blocks unsafe or out-of-domain queries.                     |
+|                              | **Metrics & Observability**              | Tracks calls, intents, latency (p50/p95), confidence, and tool success. Exposed via `/metrics`.            |
+| 💬 **Frontend (React/Vite)** | **Streaming Chat UI**                    | Real-time bi-directional chat over WebSocket with token streaming effect.                                  |
+|                              | **Citations & Snippets**                 | Displays the retrieved document and snippet used to form the response.                                     |
+|                              | **Responsive Design**                    | Clean layout with intent chips, confidence badges, and sticky input composer.                              |
+| 🧩 **Infrastructure**        | **Dockerized Setup**                     | Simple startup: `docker compose up` brings up API + DB in seconds.                                         |
+|                              | **Extensible Architecture**              | Modular code—swap in better embedders (e.g. `sentence-transformers`), add new tools, or connect real APIs. |
+
+
+A minimal,  starter that you can run locally with Docker Compose:
 - **FastAPI** backend with streaming chat endpoints
 - **Postgres + pgvector** (via ankane/pgvector image) for retrieval-ready storage
 - Seed data + ingestion script
@@ -67,7 +82,3 @@ docker-compose.yml
 README.md
 ```
 
-## Talking Points (for your interview)
-- Orchestrated flow: guard → route → retrieve/tool → ground → stream
-- Design for **latency** and **groundedness** (confidence gating, citations)
-- Tooling vs pure chat: determinism, observability, regression tests
