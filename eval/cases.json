@@ -1,0 +1,14 @@
+{
+  "cases": [
+    {
+      "id": "faq-returns-1",
+      "prompt": "How long do I have to return an item?",
+      "expected_contains": "30 days"
+    },
+    {
+      "id": "order-status-1",
+      "prompt": "What is the status of order A123?",
+      "expected_contains": "Shipped"
+    }
+  ]
+}
